@@ -1,4 +1,5 @@
 import { Bot } from 'grammy'
+import { detectUrlPlatform, isUrl } from './helpers/url'
 
 // Create an instance of the `Bot` class and pass your bot token to it.
 const bot = new Bot('6907288230:AAGewZLSnXPCwae0ZULVb5yrex2P9pMVFA8') // <-- put your bot token between the ""
@@ -18,8 +19,21 @@ localtime: ${new Date()}
     `)
 })
 
-bot.on('message', (ctx) => {
-    ctx.reply('great message')
+bot.on('message', async (ctx) => {
+    await ctx.replyWithChatAction('typing')
+
+    if (!ctx.message.text) {
+        return
+    }
+
+    if (!isUrl(ctx.message.text)) {
+        await ctx.reply('Send me the link and I\'ll download it ez.')
+        return
+    }
+
+    const platform = detectUrlPlatform(ctx.message.text)
+
+    await ctx.reply(platform.name)
 })
 
 // Now that you specified how to handle messages, you can start your bot.
