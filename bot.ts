@@ -8,7 +8,39 @@ const startTime = new Date()
 // grammY will call the listeners when users send messages to your bot.
 
 // Handle the /start command.
-bot.command('start', (ctx) => ctx.reply("Welcome! Up and running."))
+bot.command('start', (ctx) => {
+    ctx.reply(`
+Добро пожаловать, ${ctx.from?.first_name}.
+
+Вас приветствует бот для скачивания медиа-контента без необходимости подписок и дополнительных шагов! Получайте видео, фотографии и аудио с TikTok, Instagram, YouTube и других популярных платформ. 
+
+Просто отправьте ссылку, и бот моментально скачает нужный вам контент — просто, без лишних усилий.
+    `)
+})
+
+bot.command('help', (ctx) => {
+    ctx.reply(`
+Дополнительная инфорация
+
+Как пользоваться?
+Просто отправьте ссылку, и бот моментально определит какому ресурсу он принадлежит и скачает нужный вам контент — просто, без лишних усилий.
+ 
+Список поддерживаемых платформ:
+- TikTok / Videos & Slides
+- Instagram / Reels & Videos & Photos
+- YouTube / Videos & Shorts
+- VK (скоро)
+- RuTube (скоро) 
+- Mover (скоро)
+- Vimeo (скоро)
+
+Доступные команды:
+/start - необходимо что бы начать пользоваться ботом
+/uptime - метрика, представляющей процент времени, в течение которого оборудование, компьютерная сеть или устройство успешно функционируют.  
+   
+Обратная связь: @azabroflovski   
+    `)
+})
 
 // Handle the /uptime command.
 bot.command('uptime', async (ctx) => {
