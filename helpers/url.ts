@@ -1,20 +1,23 @@
+/**
+ *
+ */
 export const urlMatchers = [
     {
-        name: 'Instagram',
+        name: 'instagram',
         regexp: /(?:https?:\/\/)?(?:www\.)?instagram\.com\/([^\/]+)/,
     },
     {
-        name: 'TikTok',
-        regexp: /^.*https:\/\/(?:m|www|vm|vt)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+)/
+        name: 'tiktok',
+        regexp: /^.*https:\/\/?(?:m|www|vm|vt)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+)/
     },
     {
-        name: 'YouTube',
+        name: 'youtube',
         regexp: /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:c\/|channel\/|user\/)?([^\/]+)/,
     }
 ]
 
 
-export function isUrl(url: string) {
+export function isUrl(url: string): boolean {
     try {
         new URL(url);
         return true;
@@ -23,7 +26,16 @@ export function isUrl(url: string) {
     }
 }
 
-export function detectUrlPlatform(url: string) {
+interface Platform {
+    name: string | 'unknown'
+    url: URL
+}
+
+/**
+ * Detect platform by passed url
+ * @param url
+ */
+export function detectUrlPlatform(url: string): Platform {
     const platform = urlMatchers.find(matcher => {
         console.log(url, matcher.regexp.test(url.trim()))
         return matcher.regexp.test(url.trim())
@@ -32,13 +44,13 @@ export function detectUrlPlatform(url: string) {
     if (platform) {
         return {
             name: platform.name,
-            url,
+            url: new URL(url),
         }
 
     }
 
     return {
         name: 'unknown',
-        url: url,
+        url: new URL(url),
     }
 }
