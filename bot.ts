@@ -2,14 +2,16 @@ import { createTelegramBot } from './helpers/bot'
 
 const bot = createTelegramBot()
 
-
-// Now that you specified how to handle messages, you can start your bot.
-// This will connect to the Telegram servers and wait for messages.
-
+/**
+ * Bot running up successfully
+ */
 function onBotStartSuccess() {
     console.log('bot started')
 }
 
+/**
+ * Calls when bot running up failed
+ */
 function onBotStartFailed() {
     console.log('bot failed')
 }
