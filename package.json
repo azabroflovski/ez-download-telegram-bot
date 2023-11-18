@@ -28,6 +28,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "grammy": "^1.19.2"
+    "@sasmeee/igdl": "^1.0.0",
+    "grammy": "^1.19.2",
+    "npm": "^10.2.4",
+    "ofetch": "^1.3.3"
   }
 }
