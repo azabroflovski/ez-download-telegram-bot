@@ -72,7 +72,6 @@ bot.on('message:text', async (ctx, next) => {
 
 
     if (platform.name === 'tiktok') {
-
         interface TiktokMediaResponse {
             title: string
             author: string
@@ -86,7 +85,6 @@ bot.on('message:text', async (ctx, next) => {
         await sleep(1000)
 
         const { sd } = (await getTiktokMediaUrl(platform.url.href))[0] as TiktokMediaResponse
-
         await ctx.replyWithVideo(sd, replyOptions)
     }
 
