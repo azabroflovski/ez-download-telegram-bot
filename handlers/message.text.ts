@@ -2,7 +2,13 @@ import {Composer, InlineKeyboard} from 'grammy'
 import { detectUrlPlatform, isUrl } from '../helpers/url'
 import { sleep } from '../helpers/promise'
 import youtubeDL from '@distube/ytdl-core'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import getInstagramMediaUrl from '@sasmeee/igdl'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import getTiktokMediaUrl from '@sasmeee/tkdl'
 
 
@@ -56,7 +62,7 @@ bot.on('message:text', async (ctx) => {
         }
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
+        // @ts-ignore
         const { download_link } = (await getInstagramMediaUrl(platform.url.href))[0] as InstagramMediaResponse
 
         if (download_link.includes('jpg') || download_link.includes('jpeg')) {
@@ -85,7 +91,7 @@ bot.on('message:text', async (ctx) => {
         await sleep(1000)
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
+        // @ts-ignore
         const { sd } = (await getTiktokMediaUrl(platform.url.href))[0] as TiktokMediaResponse
         await ctx.replyWithVideo(sd, replyOptions)
     }
