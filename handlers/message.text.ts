@@ -1,10 +1,13 @@
 import {Composer, InlineKeyboard} from 'grammy'
 import { detectUrlPlatform, isUrl } from '../helpers/url'
 import { sleep } from '../helpers/promise'
+import youtubeDL from '@distube/ytdl-core'
 // @ts-ignore
 import getInstagramMediaUrl from '@sasmeee/igdl'
 // @ts-ignore
 import getTiktokMediaUrl from '@sasmeee/tkdl'
+import {ofetch} from "ofetch";
+
 
 const bot = new Composer()
 
@@ -66,8 +69,6 @@ bot.on('message:text', async (ctx, next) => {
             await sleep(500)
             await ctx.replyWithVideo(download_link, replyOptions)
         }
-
-        return
     }
 
 
@@ -86,6 +87,40 @@ bot.on('message:text', async (ctx, next) => {
 
         const { sd } = (await getTiktokMediaUrl(platform.url.href))[0] as TiktokMediaResponse
         await ctx.replyWithVideo(sd, replyOptions)
+    }
+
+    if (platform.name === 'youtube') {
+        const { videoDetails, formats: videoFormats } = await youtubeDL.getInfo(platform.url.href)
+        const videoThumbnail = videoDetails.thumbnails.at(-1)
+
+        if (videoThumbnail) {
+            const inlineButtonsOfFormats = new InlineKeyboard()
+
+            videoFormats
+                .filter(format => format.qualityLabel)
+                .sort((a, b) => +a.qualityLabel + +b.qualityLabel)
+                .forEach((format, index) => {
+                const { qualityLabel, mimeType, fps, url } = format
+                if (format.mimeType) {
+                    const needMimeType= mimeType?.split(';')[0].split('/')[1]
+                    const humanReadableMimeType = needMimeType && needMimeType ? `(${needMimeType})` : ''
+
+                    inlineButtonsOfFormats.text(`${qualityLabel} - ${humanReadableMimeType}`, 'downloadYoutubeVideo')
+
+                    if (index % 2 === 0) {
+                        inlineButtonsOfFormats.row()
+                    }
+                }
+            })
+
+            await ctx.replyWithPhoto(videoThumbnail.url, {
+                caption: 'Выберите формат:',
+                reply_to_message_id: ctx.message.message_id,
+                reply_markup: {
+                    inline_keyboard: inlineButtonsOfFormats.inline_keyboard
+                },
+            })
+        }
     }
 
     await ctx.api.deleteMessage(ctx.chat.id, loadingMessage.message_id)

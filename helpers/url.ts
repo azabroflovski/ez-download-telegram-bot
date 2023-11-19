@@ -12,7 +12,7 @@ export const urlMatchers = [
     },
     {
         name: 'youtube',
-        regexp: /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:c\/|channel\/|user\/)?([^\/]+)/,
+        regexp: /(?:https?:\/\/)?(?:www\.)?youtube|youtu\.com|.be\/(?:c\/|channel\/|user\/)?([^\/]+)/,
     }
 ]
 
