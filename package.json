@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@distube/ytdl-core": "^4.13.3",
+    "@grammyjs/runner": "^2.0.3",
     "@sasmeee/igdl": "^1.0.0",
     "@sasmeee/tkdl": "^1.0.3",
     "@sentry/node": "^7.80.1",
