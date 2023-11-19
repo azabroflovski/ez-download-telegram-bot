@@ -1,5 +1,5 @@
 import { Context, NextFunction } from 'grammy'
 export async function logMiddleWare(ctx: Context, next: NextFunction): Promise<void> {
-    console.info(ctx.message)
+    console.log(JSON.stringify(ctx.message))
     await next()
 }
