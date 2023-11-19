@@ -1,4 +1,4 @@
-import { Bot, Context, FilterQuery, Middleware } from 'grammy'
+import { Bot, Context, Middleware } from 'grammy'
 
 export interface TelegramBotBuilderConfig {
     token: string

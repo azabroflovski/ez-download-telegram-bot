@@ -2,16 +2,13 @@ import {Composer, InlineKeyboard} from 'grammy'
 import { detectUrlPlatform, isUrl } from '../helpers/url'
 import { sleep } from '../helpers/promise'
 import youtubeDL from '@distube/ytdl-core'
-// @ts-ignore
 import getInstagramMediaUrl from '@sasmeee/igdl'
-// @ts-ignore
 import getTiktokMediaUrl from '@sasmeee/tkdl'
-import {ofetch} from "ofetch";
 
 
 const bot = new Composer()
 
-bot.on('message:text', async (ctx, next) => {
+bot.on('message:text', async (ctx) => {
 
     if (!isUrl(ctx.message.text)) {
         await ctx.replyWithChatAction('typing')
@@ -58,6 +55,8 @@ bot.on('message:text', async (ctx, next) => {
             download_link: string
         }
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         const { download_link } = (await getInstagramMediaUrl(platform.url.href))[0] as InstagramMediaResponse
 
         if (download_link.includes('jpg') || download_link.includes('jpeg')) {
@@ -85,6 +84,8 @@ bot.on('message:text', async (ctx, next) => {
         await ctx.replyWithChatAction('upload_video')
         await sleep(1000)
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         const { sd } = (await getTiktokMediaUrl(platform.url.href))[0] as TiktokMediaResponse
         await ctx.replyWithVideo(sd, replyOptions)
     }
@@ -100,7 +101,7 @@ bot.on('message:text', async (ctx, next) => {
                 .filter(format => format.qualityLabel)
                 .sort((a, b) => +a.qualityLabel + +b.qualityLabel)
                 .forEach((format, index) => {
-                const { qualityLabel, mimeType, fps, url } = format
+                const { qualityLabel, mimeType } = format
                 if (format.mimeType) {
                     const needMimeType= mimeType?.split(';')[0].split('/')[1]
                     const humanReadableMimeType = needMimeType && needMimeType ? `(${needMimeType})` : ''

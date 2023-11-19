@@ -4,14 +4,17 @@
 export const urlMatchers = [
     {
         name: 'instagram',
+        // eslint-disable-next-line
         regexp: /(?:https?:\/\/)?(?:www\.)?instagram\.com\/([^\/]+)/,
     },
     {
         name: 'tiktok',
+        // eslint-disable-next-line
         regexp: /^.*https:\/\/?(?:m|www|vm|vt)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+)/
     },
     {
         name: 'youtube',
+        // eslint-disable-next-line
         regexp: /(?:https?:\/\/)?(?:www\.)?youtube|youtu\.com|.be\/(?:c\/|channel\/|user\/)?([^\/]+)/,
     }
 ]

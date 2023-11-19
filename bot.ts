@@ -47,7 +47,7 @@ async function onBotRuntimeError({ error, ctx }:  BotError<Context>) {
 
 // Start the bot.
 bot.start()
-    .then()
+    .then(onBotStartSuccess)
     .catch(onBotStartFailed)
 
 // Catch error when bot working
