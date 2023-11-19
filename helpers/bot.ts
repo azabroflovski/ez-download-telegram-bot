@@ -1,6 +1,8 @@
 import { TelegramBotBuilder } from '../builders/bot'
 import { BotToken } from '../config'
 
+import { logMiddleWare } from '../middlewares'
+
 import {
     startCommand,
     uptimeCommand,
@@ -17,6 +19,8 @@ export function createTelegramBot() {
     const bot = new TelegramBotBuilder({
         token: BotToken,
     })
+
+    bot.registerMiddleware(logMiddleWare)
 
     bot.registerCommand('/start', startCommand)
     bot.registerCommand('/uptime', uptimeCommand)

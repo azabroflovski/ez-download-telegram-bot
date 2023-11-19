@@ -41,6 +41,16 @@ export class TelegramBotBuilder {
     /**
      * Register bot module (middleware)
      * @link https://grammy.dev/guide/middleware#middleware
+     * @param middleware
+     */
+    registerMiddleware(middleware: Middleware) {
+        this.bot.use(middleware)
+        return this
+    }
+
+    /**
+     * Register bot module (middleware)
+     * @link https://grammy.dev/guide/middleware#middleware
      * @param module
      */
     registerModule(module: Middleware) {
