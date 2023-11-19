@@ -1,5 +1,5 @@
 /**
- *
+ * Detect platform patterns
  */
 export const urlMatchers = [
     {
@@ -20,6 +20,10 @@ export const urlMatchers = [
 ]
 
 
+/**
+ * Check string for URL
+ * @param url {string}
+ */
 export function isUrl(url: string): boolean {
     try {
         new URL(url);
@@ -36,7 +40,7 @@ interface Platform {
 
 /**
  * Detect platform by passed url
- * @param url
+ * @param url {string}
  */
 export function detectUrlPlatform(url: string): Platform {
     const platform = urlMatchers.find(matcher => {

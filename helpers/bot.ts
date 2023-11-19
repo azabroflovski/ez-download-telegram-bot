@@ -9,6 +9,10 @@ import {
 
 import { MessageTextHandler } from '../handlers'
 
+/**
+ * Create grammy bot instance
+ * @link https://deno.land/x/grammy@v1.19.2/mod.ts?s=Bot
+ */
 export function createTelegramBot() {
     const bot = new TelegramBotBuilder({
         token: BotToken,

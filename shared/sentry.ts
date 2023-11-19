@@ -1,3 +1,8 @@
+/**
+ * Sentry initialization
+ * @link https://docs.sentry.io/platforms/node/
+ */
+
 import * as Sentry from '@sentry/node'
 import { ProfilingIntegration } from '@sentry/profiling-node'
 
