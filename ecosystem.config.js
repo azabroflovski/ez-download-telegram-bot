@@ -3,7 +3,7 @@ module.exports = {
   apps : [
     {
       name   : "ez-download-telegram-bot",
-      script : "./bot.js"
+      script : "./.build/bot.js"
     }
   ]
 }
