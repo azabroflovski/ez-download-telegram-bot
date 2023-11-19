@@ -31,6 +31,8 @@
     "@distube/ytdl-core": "^4.13.3",
     "@sasmeee/igdl": "^1.0.0",
     "@sasmeee/tkdl": "^1.0.3",
+    "@sentry/node": "^7.80.1",
+    "@sentry/profiling-node": "^1.2.6",
     "grammy": "^1.19.2",
     "i": "^0.3.7",
     "npm": "^10.2.4",

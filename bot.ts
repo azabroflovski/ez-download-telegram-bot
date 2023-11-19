@@ -1,5 +1,7 @@
 import { createTelegramBot } from './helpers/bot'
 import { Context, BotError } from 'grammy'
+import './shared/sentry'
+import * as Sentry from '@sentry/node'
 
 const bot = createTelegramBot()
 
@@ -17,16 +19,35 @@ function onBotStartFailed() {
     console.log('bot failed')
 }
 
-async function onBotRuntimeError(error:  BotError<Context>) {
-    console.log(error)
-    console.log('runtime error')
+async function onBotRuntimeError({ error, ctx }:  BotError<Context>) {
+    if (ctx.from) {
+        Sentry.setUser({
+            id: ctx.from.id,
+            username: ctx.from.username,
+        })
+        Sentry.setContext('from', ctx.from)
+        Sentry.setTags({
+            chat_id: ctx.from.id,
+            username: ctx.from.username,
+        })
+    }
 
-    await error.ctx.reply('В работе бота произошла ошибка.')
+    if (ctx.chat) {
+        Sentry.setContext('chat', ctx.chat)
+    }
+
+    if (ctx.message) {
+        Sentry.setContext('message', ctx.message)
+    }
+
+    Sentry.captureException(error)
+
+    await ctx.reply('В работе бота произошла ошибка.')
 }
 
 // Start the bot.
 bot.start()
-    .then(onBotStartSuccess)
+    .then()
     .catch(onBotStartFailed)
 
 // Catch error when bot working

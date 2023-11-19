@@ -37,7 +37,6 @@ interface Platform {
  */
 export function detectUrlPlatform(url: string): Platform {
     const platform = urlMatchers.find(matcher => {
-        console.log(url, matcher.regexp.test(url.trim()))
         return matcher.regexp.test(url.trim())
     })
 
